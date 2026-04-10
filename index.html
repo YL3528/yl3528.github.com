@@ -35,7 +35,7 @@
     const q = new URLSearchParams(location.search);
     const type = q.get('type') || 'post';
     const id = q.get('id') || '';
-    const title = q.get('title') || '旅行分享';
+    const titleFromQuery = q.get('title') || '旅行分享';
 
     const titleEl = document.getElementById('title');
     const metaEl = document.getElementById('meta');
@@ -43,22 +43,60 @@
     const contentEl = document.getElementById('content');
     const commentsEl = document.getElementById('comments');
 
-    titleEl.textContent = decodeURIComponent(title);
-    metaEl.textContent = `类型：${type}  ｜  ID：${id}`;
-    coverEl.src = 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80';
-    contentEl.textContent = '这是用于毕业设计演示的落地页模板。你可以把真实帖子标题、正文和评论通过后端接口返回到这里展示。';
+    function renderComments(comments) {
+      commentsEl.innerHTML = '';
+      comments.forEach((c, i) => {
+        const nickName = c.nickName || `游客${i + 1}`;
+        const content = c.content || '';
+        const commentTime = c.commentTime || '';
+        const timeHtml = commentTime ? `<span style="color:#888;font-size:12px;margin-left:8px;">${commentTime}</span>` : '';
+        const box = document.createElement('div');
+        box.className = 'comment';
+        box.innerHTML = `<div class="name">${nickName}${timeHtml}</div><div class="text">${content}</div>`;
+        commentsEl.appendChild(box);
+      });
+    }
 
-    const comments = [
-      '这个路线很实用，收藏了！',
-      '照片拍得太好看了，下次我也去这里。',
-      '感谢分享，评论区等更新攻略。'
-    ];
-    comments.forEach((txt, i) => {
+    async function renderById() {
+      try {
+        const resp = await fetch('./mock-posts.json', { cache: 'no-store' });
+        const data = await resp.json();
+        const posts = Array.isArray(data.posts) ? data.posts : [];
+        const post = posts.find(p => String(p.id) === String(id));
+
+        if (post) {
+          titleEl.textContent = post.title || decodeURIComponent(titleFromQuery);
+          metaEl.textContent = `类型：${type}  ｜  ID：${id}  ｜  ${post.publishLocation || ''} ${post.publishTime || ''}`;
+          coverEl.src = post.coverUrl || 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80';
+          contentEl.textContent = post.content || '';
+          renderComments(post.comments || []);
+          return;
+        }
+      } catch (e) {
+        // 忽略并走兜底
+      }
+
+      // 兜底：找不到 id 或读取失败时使用 query + 示例内容
+      titleEl.textContent = decodeURIComponent(titleFromQuery);
+      metaEl.textContent = `类型：${type}  ｜  ID：${id}`;
+      coverEl.src = 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80';
+      contentEl.textContent = '未匹配到对应帖子数据，请检查二维码中的 id 是否存在于 mock-posts.json。';
+      renderComments([
+        { nickName: '系统提示', content: '当前显示的是兜底内容。' }
+      ]);
+    }
+
+    renderById();
+    /*
+      旧演示逻辑保留参考：
+      const comments = ['这个路线很实用，收藏了！','照片拍得太好看了，下次我也去这里。','感谢分享，评论区等更新攻略。'];
+      comments.forEach((txt, i) => {
       const box = document.createElement('div');
       box.className = 'comment';
       box.innerHTML = `<div class="name">游客${i + 1}</div><div class="text">${txt}</div>`;
       commentsEl.appendChild(box);
-    });
+      });
+    */
   </script>
 </body>
 </html>
