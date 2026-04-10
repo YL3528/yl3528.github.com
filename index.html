@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>旅行帖子详情</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f6f8; color: #222; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 16px; }
+    .card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    .meta { color: #777; font-size: 13px; margin-bottom: 12px; }
+    .cover { width: 100%; border-radius: 10px; margin: 8px 0 12px; object-fit: cover; max-height: 360px; }
+    .content { line-height: 1.7; font-size: 15px; }
+    .title2 { font-size: 18px; margin: 18px 0 10px; }
+    .comment { background: #f8f9fb; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+    .comment .name { font-weight: 600; margin-bottom: 4px; }
+    .comment .text { color: #444; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 id="title">帖子详情</h1>
+      <div class="meta" id="meta"></div>
+      <img id="cover" class="cover" alt="cover" />
+      <div class="content" id="content"></div>
+
+      <div class="title2">评论</div>
+      <div id="comments"></div>
+    </div>
+  </div>
+
+  <script>
+    const q = new URLSearchParams(location.search);
+    const type = q.get('type') || 'post';
+    const id = q.get('id') || '';
+    const title = q.get('title') || '旅行分享';
+
+    const titleEl = document.getElementById('title');
+    const metaEl = document.getElementById('meta');
+    const coverEl = document.getElementById('cover');
+    const contentEl = document.getElementById('content');
+    const commentsEl = document.getElementById('comments');
+
+    titleEl.textContent = decodeURIComponent(title);
+    metaEl.textContent = `类型：${type}  ｜  ID：${id}`;
+    coverEl.src = 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80';
+    contentEl.textContent = '这是用于毕业设计演示的落地页模板。你可以把真实帖子标题、正文和评论通过后端接口返回到这里展示。';
+
+    const comments = [
+      '这个路线很实用，收藏了！',
+      '照片拍得太好看了，下次我也去这里。',
+      '感谢分享，评论区等更新攻略。'
+    ];
+    comments.forEach((txt, i) => {
+      const box = document.createElement('div');
+      box.className = 'comment';
+      box.innerHTML = `<div class="name">游客${i + 1}</div><div class="text">${txt}</div>`;
+      commentsEl.appendChild(box);
+    });
+  </script>
+</body>
+</html>
+
