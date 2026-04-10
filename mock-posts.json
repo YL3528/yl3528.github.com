@@ -1,0 +1,41 @@
+{
+  "posts": [
+    {
+      "id": "h1",
+      "title": "最高楼看古城，全景一览无余",
+      "content": "登高远眺，打卡城市天际线，拍照出片率拉满。这里是最佳观景位置，可以看到整个城市的美景。站在高处，感受城市的繁华与宁静，记录下这美好的瞬间。",
+      "coverUrl": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=80",
+      "publishTime": "2024-01-15",
+      "publishLocation": "北京",
+      "comments": [
+        { "nickName": "小蛮妮儿", "content": "水阁家宴好友特色乌镇听评弹收费吗", "commentTime": "2024-12-03" },
+        { "nickName": "新月无形", "content": "好玩的呢", "commentTime": "2024-12-03" },
+        { "nickName": "旅行小白", "content": "第一次去，有什么建议吗？", "commentTime": "2024-12-05" }
+      ]
+    },
+    {
+      "id": "1",
+      "title": "最高楼看古城，全景一览无余",
+      "content": "登高远眺，打卡城市天际线，拍照出片率拉满。",
+      "coverUrl": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1400&q=80",
+      "publishTime": "2024-01-15",
+      "publishLocation": "北京",
+      "comments": [
+        { "nickName": "旅行达人", "content": "这个地方真的很美，值得一去！", "commentTime": "2024-12-04" },
+        { "nickName": "摄影爱好者", "content": "照片拍得真不错，我也想去看看", "commentTime": "2024-12-04" }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "老街慢步，一天逛遍百年古巷",
+      "content": "咖啡、戏台、手作店，一条街满足所有幻想。",
+      "coverUrl": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=80",
+      "publishTime": "2024-01-14",
+      "publishLocation": "北京",
+      "comments": [
+        { "nickName": "吃货阿橘", "content": "路线不错，周末就去！", "commentTime": "2024-12-07" }
+      ]
+    }
+  ]
+}
+
